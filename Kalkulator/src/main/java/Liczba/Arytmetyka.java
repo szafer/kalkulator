@@ -33,7 +33,7 @@ public class Arytmetyka {
 		boolean firstNonZero = false;
 		for (int i = addArray.length - 1; i >= 0; i--) {
 
-			if (!firstNonZero && (addArray[i] == 0)) {
+			if (!firstNonZero && addArray[i] == 0) {
 				continue;
 			} else {
 				firstNonZero = true;
@@ -144,12 +144,13 @@ public class Arytmetyka {
 		return mul(tex.stringToArray(), text.stringToArray());
 	}
 
-	public String div(DuzaLiczba tex, DuzaLiczba text) {
-		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
-
-		// return div(stringToArray(tex), stringToArray(text));
-		return null;
-	}
+	// public String div(DuzaLiczba tex, DuzaLiczba text) {
+	//// int length = Math.max(tex.getLiczbaStr().length(),
+	// text.getLiczbaStr().length());
+	//
+	// // return div(stringToArray(tex), stringToArray(text));
+	// return null;
+	// }
 
 	public int div(int bigInt1, int bigInt2) throws Dzielenie0Exception {
 		if (bigInt2 == 0) {
@@ -196,25 +197,20 @@ public class Arytmetyka {
 		}
 		return remainder;
 	}
-	
-	public DuzaLiczba divideBy(DuzaLiczba number, int divisor) throws BlednaLiczbaException
-	{
-	    if(divisor <= 0 || BASE <= divisor) {
-	        throw new IllegalArgumentException("divisor " + divisor +
-	                                           " out of range!");
-	    }
 
-	    int[] result = new int[number.getDlugosc()];
-	    divideDigits(result, 0,
-	    		     number.getLiczbaInt(), 0,
-	                 divisor);
-	    DuzaLiczba bigNumber = new DuzaLiczba(result);
-	    return bigNumber;	    
+	public DuzaLiczba divideBy(DuzaLiczba number, int divisor) throws BlednaLiczbaException {
+		if (divisor <= 0 || BASE <= divisor) {
+			throw new IllegalArgumentException("divisor " + divisor + " out of range!");
+		}
+
+		int[] result = new int[number.getDlugosc()];
+		divideDigits(result, 0, number.getLiczbaInt(), 0, divisor);
+		DuzaLiczba bigNumber = new DuzaLiczba(result);
+		return bigNumber;
 	}
 
 	public String divideBy(DuzaLiczba d1, String dzielnikStr) throws BlednaLiczbaException {
-		int  dzielnik = 1;
-		;
+		int dzielnik = 1;
 		if (dzielnikStr.length() > 0) {
 			try {
 				dzielnik = Integer.parseInt(dzielnikStr);

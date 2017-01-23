@@ -91,6 +91,11 @@
 					<artifactId>maven-release-plugin</artifactId>
 					<version>2.3.2</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-pmd-plugin</artifactId>
+					<version>3.7</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -246,12 +251,67 @@
 					</reportPlugins>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<!-- <version>3.7</version> -->
+				<configuration>
+					<skipEmptyReport>false</skipEmptyReport>
+					<linkXref>true</linkXref>
+					<!-- <sourceEncoding>utf-8</sourceEncoding> -->
+					<minimumTokens>1</minimumTokens>
+					<targetJdk>1.8</targetJdk>
+<!-- 					<goals> -->
+<!-- 						<goal>pmd</goal> -->
+<!-- 						<goal>check</goal> -->
+<!-- 						<goal>cpd-check</goal> -->
+<!-- 					</goals> -->
+
+					<excludeRoots>
+						<excludeRoot>target/generated-sources/stubs</excludeRoot>
+					</excludeRoots>
+				</configuration>
+			</plugin>
+			   <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
 		</plugins>
 	</build>
 
 
 	<reporting>
 		<outputDirectory>target/site</outputDirectory>
+		<plugins>
+		   <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.7</version>
+				<configuration>
+					<skipEmptyReport>false</skipEmptyReport>
+					<linkXref>true</linkXref>
+					<!-- <sourceEncoding>utf-8</sourceEncoding> -->
+					<minimumTokens>1</minimumTokens>
+					<targetJdk>1.8</targetJdk>
+<!-- 					<goals> -->
+<!-- 						<goal>pmd</goal> -->
+<!-- 						<goal>check</goal> -->
+<!-- 						<goal>cpd-check</goal> -->
+<!-- 					</goals> -->
+					<excludeRoots>
+						<excludeRoot>target/generated-sources/stubs</excludeRoot>
+					</excludeRoots>
+				</configuration>
+			</plugin>
+
+			<!-- ... -->
+		</plugins>
 	</reporting>
 
 	<!-- <profiles> -->
