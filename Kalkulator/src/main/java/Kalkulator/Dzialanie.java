@@ -15,7 +15,7 @@ public class Dzialanie {
 	public void run(String text, RodzajDzialania operacja) throws BlednaLiczbaException, Dzielenie0Exception {
 //		konwertuj(text);
 
-		if (operacja ==RodzajDzialania.CANCEL){
+		if (operacja ==RodzajDzialania.CANCEL){ 
 			pamiec = new String("0");
 		} else{
 			pamiec = wykonajDzialanie(text, this.operacja);
