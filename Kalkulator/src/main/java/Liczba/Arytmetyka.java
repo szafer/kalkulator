@@ -39,15 +39,12 @@ public class Arytmetyka {
 				firstNonZero = true;
 			}
 			add += addArray[i];
-			// if ((i % 3 == 0) && i != 0) {
-			// add += " ";
-			// } // formatting
 		}
 		String sumStr = add.length() == 0 ? "0" : add;
 		return sumStr;
 	}
 
-	public String sub(int[] array1, int[] array2) {
+	public String subtract(int[] array1, int[] array2) {
 		int carry = 0;
 		int sub[] = new int[array1.length + 1];
 
@@ -71,7 +68,7 @@ public class Arytmetyka {
 		return array;
 	}
 
-	public String mul(int[] array1, int[] array2) {
+	public String multiply(int[] array1, int[] array2) {
 		int product[] = new int[array1.length + array2.length];
 		for (int i = 0; i < array1.length; i++) {
 			for (int j = 0; j < array2.length; j++) {
@@ -134,25 +131,17 @@ public class Arytmetyka {
 		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
 		tex.setDlugosc(length);
 		text.setDlugosc(length);
-		return sub(tex.stringToArray(), text.stringToArray());
+		return subtract(tex.stringToArray(), text.stringToArray());
 	}
 
 	public String multiply(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
 		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
 		tex.setDlugosc(length);
 		text.setDlugosc(length);
-		return mul(tex.stringToArray(), text.stringToArray());
+		return multiply(tex.stringToArray(), text.stringToArray());
 	}
 
-	// public String div(DuzaLiczba tex, DuzaLiczba text) {
-	//// int length = Math.max(tex.getLiczbaStr().length(),
-	// text.getLiczbaStr().length());
-	//
-	// // return div(stringToArray(tex), stringToArray(text));
-	// return null;
-	// }
-
-	public int div(int bigInt1, int bigInt2) throws Dzielenie0Exception {
+	public int divide(int bigInt1, int bigInt2) throws Dzielenie0Exception {
 		if (bigInt2 == 0) {
 			throw new Dzielenie0Exception();
 		}
@@ -197,20 +186,24 @@ public class Arytmetyka {
 		}
 		return remainder;
 	}
+	
+	public DuzaLiczba divide(DuzaLiczba number, int divisor) throws Dzielenie0Exception, BlednaLiczbaException
+	{
+	    if(divisor <= 0 || BASE <= divisor) {
+	        throw new Dzielenie0Exception();
+	    }
 
-	public DuzaLiczba divideBy(DuzaLiczba number, int divisor) throws BlednaLiczbaException {
-		if (divisor <= 0 || BASE <= divisor) {
-			throw new IllegalArgumentException("divisor " + divisor + " out of range!");
-		}
-
-		int[] result = new int[number.getDlugosc()];
-		divideDigits(result, 0, number.getLiczbaInt(), 0, divisor);
-		DuzaLiczba bigNumber = new DuzaLiczba(result);
-		return bigNumber;
+	    int[] result = new int[number.getDlugosc()];
+	    divideDigits(result, 0,
+	    		     number.getLiczbaInt(), 0,
+	                 divisor);
+	    DuzaLiczba bigNumber = new DuzaLiczba(result);
+	    return bigNumber;	    
 	}
 
-	public String divideBy(DuzaLiczba d1, String dzielnikStr) throws BlednaLiczbaException {
-		int dzielnik = 1;
+	public String divide(DuzaLiczba d1, String dzielnikStr) throws BlednaLiczbaException, Dzielenie0Exception {
+		int  dzielnik = 1;
+		;
 		if (dzielnikStr.length() > 0) {
 			try {
 				dzielnik = Integer.parseInt(dzielnikStr);
@@ -218,6 +211,6 @@ public class Arytmetyka {
 				throw new BlednaLiczbaException();
 			}
 		}
-		return divideBy(d1, dzielnik).getLiczbaStr();
+		return divide(d1, dzielnik).getLiczbaStr();
 	}
 }
