@@ -84,9 +84,10 @@ public class DuzaLiczbaTest {
 	
 	/**
 	 * Sprawdzenie czy ustawiona liczba jako string jest tym samym obiektem
+	 * @throws BlednaLiczbaException 
 	 */
 	@Test
-	public void testLiczbaString() {
+	public void testLiczbaString() throws BlednaLiczbaException {
 		DuzaLiczba liczba = new DuzaLiczba();
 		liczba.setLiczbaStr("123456789123456789123456789");
 		assertSame("123456789123456789123456789", liczba.getLiczbaStr());		
