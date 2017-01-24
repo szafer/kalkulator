@@ -92,7 +92,7 @@ public class ArytmetykaTest {
 	 * @throws Dzielenie0Exception 
 	 */
 	@Test
-	public void dzielenieBy() throws BlednaLiczbaException, Dzielenie0Exception {
+	public void dzielenie() throws BlednaLiczbaException, Dzielenie0Exception {
 		DuzaLiczba liczba1 = new DuzaLiczba("4442");
 		DuzaLiczba liczba2 = new DuzaLiczba("2");
 	 	assertEquals("2221", new Arytmetyka().divide(liczba1, liczba2.getLiczbaStr()));

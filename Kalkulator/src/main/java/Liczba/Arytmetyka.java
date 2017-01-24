@@ -13,6 +13,7 @@ public class Arytmetyka {
 
 	public String add(int[] array1, int[] array2) {
 		int carry = 0;
+	//	System.out.println("array1.length " + array1.length + " array2.length " + array2.length);
 		int addArray[] = dajTablice(array1);
 
 		for (int i = 0; i < array1.length; i++) {
