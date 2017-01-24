@@ -62,10 +62,18 @@ public class DzialanieTest {
 
 	/**
 	 * Test wykonania działania dzielenia przez 0
+	 * @throws DzielenikZaDuzyException 
 	 */
 	@Test
-	public void testDzielenie0Exception() throws Dzielenie0Exception, BlednaLiczbaException {
+	public void testDzielenie0Exception() throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException {
 		when(mockDzialanie.wykonajDzialanie("0", RodzajDzialania.DZIELENIE)).thenThrow(new Dzielenie0Exception());
 	}
-
+	/**
+	 * Test wykonania działania zbyt duży dzielnik
+	 * @throws DzielenikZaDuzyException 
+	 */
+	@Test
+	public void testDzielnikException() throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException {
+		when(mockDzialanie.wykonajDzialanie("10000000001", RodzajDzialania.DZIELENIE)).thenThrow(new DzielenikZaDuzyException());
+	}
 }

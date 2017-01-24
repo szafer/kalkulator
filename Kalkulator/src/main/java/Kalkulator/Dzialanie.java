@@ -12,7 +12,7 @@ public class Dzialanie {
 	public Dzialanie() {
 	}
 
-	public void run(String text, RodzajDzialania operacja) throws BlednaLiczbaException, Dzielenie0Exception {
+	public void run(String text, RodzajDzialania operacja) throws BlednaLiczbaException, Dzielenie0Exception, DzielenikZaDuzyException {
 //		konwertuj(text);
 
 		if (operacja ==RodzajDzialania.CANCEL){ 
@@ -27,7 +27,7 @@ public class Dzialanie {
 		liczba = new String("0");
 	}
 
-	public String wykonajDzialanie(String text, RodzajDzialania oper) throws Dzielenie0Exception, BlednaLiczbaException {
+	public String wykonajDzialanie(String text, RodzajDzialania oper) throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException {
 		String wynik = getPamiec();
 		DuzaLiczba d1 = new DuzaLiczba(getPamiec());
 		DuzaLiczba d2 = new DuzaLiczba(text);
