@@ -106,26 +106,27 @@ public class Arytmetyka {
 	}
 
 	public String add(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
-
-		tex.setDlugosc(length);
-		text.setDlugosc(length);
+		int length = ustawDlugosc(tex, text);
 		return add(Konwersja.stringToArray(tex.getLiczbaStr(), length), 
 				   Konwersja.stringToArray(text.getLiczbaStr(), length));
 	}
 
-	public String subtract(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
+	private int ustawDlugosc(DuzaLiczba tex, DuzaLiczba text) {
 		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
+
 		tex.setDlugosc(length);
 		text.setDlugosc(length);
+		return length;
+	}
+
+	public String subtract(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
+		int length = ustawDlugosc(tex, text);
 		return sub(Konwersja.stringToArray(tex.getLiczbaStr(), length), 
 				   Konwersja.stringToArray(text.getLiczbaStr(), length));
 	}
 
 	public String multiply(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
-		tex.setDlugosc(length);
-		text.setDlugosc(length);
+		int length = ustawDlugosc(tex, text);
 		return multiply(Konwersja.stringToArray(tex.getLiczbaStr(), length), 
 						Konwersja.stringToArray(text.getLiczbaStr(), length));
 	}
@@ -194,7 +195,6 @@ public class Arytmetyka {
 
 	public String divide(DuzaLiczba d1, String dzielnikStr) throws BlednaLiczbaException, Dzielenie0Exception, DzielenikZaDuzyException {
 		int  dzielnik = 1;
-		;
 		if (dzielnikStr.length() > 0) {
 			try {
 				dzielnik = Integer.parseInt(dzielnikStr);
