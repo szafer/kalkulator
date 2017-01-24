@@ -27,7 +27,7 @@ public class KalkulatorPanel extends JPanel {
 		plus.setFont(font);
 		plus.setBounds(294, 169, 80, 80);
 		plus.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) { 
 				try {
 					dzialanie.run(txtWyswietlacz.getText(), RodzajDzialania.PLUS);
 					txtWyswietlacz.setText("");
