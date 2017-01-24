@@ -8,37 +8,41 @@ public class DuzaLiczba {
 	private int dlugosc;
 	private Arytmetyka arytmetyka;  
 
-	public DuzaLiczba(String init) throws BlednaLiczbaException {
-		this.arytmetyka = new Arytmetyka();
-		this.liczbaStr = init;
+	public DuzaLiczba(String liczbaStr) throws BlednaLiczbaException {
+		inicjuj();
+		this.liczbaStr = liczbaStr;
 		this.liczbaInt = stringToArray();
 	}
 
-	public DuzaLiczba(int[] liczbaInt) throws BlednaLiczbaException {
+	private void inicjuj() {
 		this.arytmetyka = new Arytmetyka();
+	}
+
+	public DuzaLiczba(int[] liczbaInt) throws BlednaLiczbaException {
+		inicjuj();
 		this.liczbaInt = liczbaInt;
 		this.liczbaStr = arytmetyka.arrayToString(liczbaInt);
 	}
 
 	public DuzaLiczba() {
-		this.arytmetyka = new Arytmetyka();
+		inicjuj();
 	}
 
 	public int[] stringToArray() throws BlednaLiczbaException {
-		if (getDlugosc() < getLiczbaStr().length()) {
-			setDlugosc(getLiczbaStr().length());
+		if (this.getDlugosc() < getLiczbaStr().length()) {
+			this.setDlugosc(getLiczbaStr().length());
 		}
-		int[] array = new int[liczbaStr.length()];
-		int[] resultArray = new int[dlugosc];
-		for (int i = 0; i < liczbaStr.length(); i++) {
-			if (Character.isDigit(liczbaStr.charAt(i))) {
-				array[i] = Character.getNumericValue(liczbaStr.charAt(i));
+		int[] array = new int[this.getLiczbaStr().length()];
+		int[] resultArray = new int[this.getDlugosc()];
+		for (int i = 0; i < this.getLiczbaStr().length(); i++) {
+			if (Character.isDigit(this.getLiczbaStr().charAt(i))) {
+				array[i] = Character.getNumericValue(this.getLiczbaStr().charAt(i));
 			} else {
 				System.out.println();
 				throw new BlednaLiczbaException();
 			}
 		}
-		for (int i = 0; i < dlugosc; i++) {
+		for (int i = 0; i < this.getDlugosc(); i++) {
 			resultArray[i] = (i < array.length ? array[(array.length - 1) - i] : 0);
 		}
 		return resultArray;
