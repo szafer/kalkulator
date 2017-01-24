@@ -13,7 +13,6 @@ public class Arytmetyka {
 
 	public String add(int[] array1, int[] array2) {
 		int carry = 0;
-		System.out.println("array1.length " + array1.length + " array2.length " + array2.length);
 		int addArray[] = new int[array1.length + 1];
 
 		for (int i = 0; i < array1.length; i++) {
@@ -21,30 +20,16 @@ public class Arytmetyka {
 			carry = (array1[i] + array2[i] + carry) / 10;
 		}
 		addArray[array1.length] = carry;
-		return arrayToString(addArray);
+		return Konwersja.arrayToString(addArray);
 	}
 
 	private int getDigitAtIndex(int longint, int index) {
 		return Integer.parseInt(Integer.toString(longint).substring(index, index + 1));
 	}
 
-	private String arrayToString(int[] addArray) {
-		String add = "";
-		boolean firstNonZero = false;
-		for (int i = addArray.length - 1; i >= 0; i--) {
+	
 
-			if (!firstNonZero && addArray[i] == 0) {
-				continue;
-			} else {
-				firstNonZero = true;
-			}
-			add += addArray[i];
-		}
-		String sumStr = add.length() == 0 ? "0" : add;
-		return sumStr;
-	}
-
-	public String subtract(int[] array1, int[] array2) {
+	public String sub(int[] array1, int[] array2) {
 		int carry = 0;
 		int sub[] = new int[array1.length + 1];
 
@@ -56,7 +41,7 @@ public class Arytmetyka {
 			carry = (array1[i] - array2[i] + carry) / 10; // Compute carry
 		}
 		sub[array1.length] = carry;
-		return arrayToString(sub);
+		return Konwersja.arrayToString(sub);
 	}
 
 	private int[] intToArray(int bigInt, int bigIntLength, int arrayLength) {
@@ -92,7 +77,7 @@ public class Arytmetyka {
 				}
 			}
 		}
-		return arrayToString(product);
+		return Konwersja.arrayToString(product);
 	}
 
 	public String check(String bigInt1, String bigInt2) {
@@ -124,21 +109,24 @@ public class Arytmetyka {
 
 		tex.setDlugosc(length);
 		text.setDlugosc(length);
-		return add(tex.stringToArray(), text.stringToArray());
+		return add(Konwersja.stringToArray(tex.getLiczbaStr(), length), 
+				   Konwersja.stringToArray(text.getLiczbaStr(), length));
 	}
 
 	public String subtract(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
 		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
 		tex.setDlugosc(length);
 		text.setDlugosc(length);
-		return subtract(tex.stringToArray(), text.stringToArray());
+		return sub(Konwersja.stringToArray(tex.getLiczbaStr(), length), 
+				   Konwersja.stringToArray(text.getLiczbaStr(), length));
 	}
 
 	public String multiply(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
 		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
 		tex.setDlugosc(length);
 		text.setDlugosc(length);
-		return multiply(tex.stringToArray(), text.stringToArray());
+		return multiply(Konwersja.stringToArray(tex.getLiczbaStr(), length), 
+						Konwersja.stringToArray(text.getLiczbaStr(), length));
 	}
 
 	public int divide(int bigInt1, int bigInt2) throws Dzielenie0Exception {

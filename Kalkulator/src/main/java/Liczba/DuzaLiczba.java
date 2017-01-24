@@ -3,73 +3,38 @@ package Liczba;
 import Kalkulator.BlednaLiczbaException;
 
 public class DuzaLiczba {
-	private String liczbaStr;
-	private int[] liczbaInt;
-	private int dlugosc;
+	public String liczbaStr;
+	public int[] liczbaInt;
+	public int dlugosc;
 
-	public DuzaLiczba(String init) throws BlednaLiczbaException {
-		this.liczbaStr = init;
-		liczbaInt = stringToArray();
+	@SuppressWarnings("static-access")
+	public DuzaLiczba(String liczbaStr) throws BlednaLiczbaException {
+		this.liczbaStr = liczbaStr;
+		this.dlugosc = liczbaStr.length();
+		this.liczbaInt = Konwersja.stringToArray(liczbaStr, liczbaStr.length());
 	}
 
+	@SuppressWarnings("static-access")
 	public DuzaLiczba(int[] liczbaInt) throws BlednaLiczbaException {
 		this.liczbaInt = liczbaInt;
-		liczbaStr = arrayToString();
+		this.liczbaStr = Konwersja.arrayToString(liczbaInt);
 	}
 
 	public DuzaLiczba() {
 	}
 
-
-	public  String arrayToString() {
-		String add = "";
-		boolean firstNonZero = false;
-		for (int i = liczbaInt.length - 1; i >= 0; i--) {
-
-			if (!firstNonZero && (liczbaInt[i] == 0)) {
-				continue;
-			} else {
-				firstNonZero = true;
-			}
-			add += liczbaInt[i];
-
-		}
-		String sumStr = add.length() == 0 ? "0" : add;
-		return sumStr;
-	}
-
+	@SuppressWarnings("static-access")
 	public String getLiczbaStr() {
-		return liczbaStr!=null ? liczbaStr : liczbaInt!=null ? arrayToString(): null;
+		return liczbaStr != null ? liczbaStr : liczbaInt != null ? Konwersja.arrayToString(liczbaInt) : null;
 	}
 
 	public void setLiczbaStr(String liczbaStr) {
 		this.liczbaStr = liczbaStr;
 	}
 
+	@SuppressWarnings("static-access")
 	public int[] getLiczbaInt() throws BlednaLiczbaException {
-		return  liczbaInt!=null ? liczbaInt : liczbaStr!=null ? stringToArray(): null;
-	}
-	
-
-	public int[] stringToArray() throws BlednaLiczbaException {
-		if (dlugosc < liczbaStr.length()) {
-			dlugosc = liczbaStr.length();
-		}
-		int[] array = new int[liczbaStr.length()];
-		int[] resultArray = new int[dlugosc];
-		for (int i = 0, n = liczbaStr.length(); i < n; i++) {
-			if (Character.isDigit(liczbaStr.charAt(i))) {
-				int digit = Character.getNumericValue(liczbaStr.charAt(i));
-				array[i] = digit;
-			} else {
-				System.out.println();
-				throw new BlednaLiczbaException();
-			}
-		}
-		for (int i = 0; i < dlugosc; i++) {
-			resultArray[i] = (i < array.length ? array[(array.length - 1) - i] : 0);
-		}
-		return resultArray;
+		return liczbaInt != null ? liczbaInt : liczbaStr != null ? Konwersja.stringToArray(liczbaStr, dlugosc) : null;
 	}
 
 	public void setLiczbaInt(int[] liczbaInt) {
