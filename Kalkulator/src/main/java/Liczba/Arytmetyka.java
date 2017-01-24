@@ -2,6 +2,7 @@ package Liczba;
 
 import Kalkulator.BlednaLiczbaException;
 import Kalkulator.Dzielenie0Exception;
+import Kalkulator.DzielenikZaDuzyException;
 
 public class Arytmetyka {
 	final static int BASE = 1000000000;
@@ -175,12 +176,14 @@ public class Arytmetyka {
 		return remainder;
 	}
 	
-	public DuzaLiczba divide(DuzaLiczba number, int divisor) throws Dzielenie0Exception, BlednaLiczbaException
+	public DuzaLiczba divide(DuzaLiczba number, int divisor) throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException
 	{
-	    if(divisor <= 0 || BASE <= divisor) {
+	    if(divisor <= 0 ) {
 	        throw new Dzielenie0Exception();
 	    }
-
+	    if( BASE <= divisor) {
+	        throw new DzielenikZaDuzyException();
+	    }
 	    int[] result = new int[number.getDlugosc()];
 	    divideDigits(result, 0,
 	    		     number.getLiczbaInt(), 0,
@@ -189,7 +192,7 @@ public class Arytmetyka {
 	    return bigNumber;	    
 	}
 
-	public String divide(DuzaLiczba d1, String dzielnikStr) throws BlednaLiczbaException, Dzielenie0Exception {
+	public String divide(DuzaLiczba d1, String dzielnikStr) throws BlednaLiczbaException, Dzielenie0Exception, DzielenikZaDuzyException {
 		int  dzielnik = 1;
 		;
 		if (dzielnikStr.length() > 0) {
