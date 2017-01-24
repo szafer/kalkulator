@@ -10,7 +10,8 @@ public class DuzaLiczba {
 
 	public DuzaLiczba(String liczbaStr) throws BlednaLiczbaException {
 		inicjuj();
-		this.liczbaStr = liczbaStr;
+		setLiczbaStr(liczbaStr);
+		setDlugosc(liczbaStr.length());
 		this.liczbaInt = stringToArray();
 	}
 
@@ -20,8 +21,8 @@ public class DuzaLiczba {
 
 	public DuzaLiczba(int[] liczbaInt) throws BlednaLiczbaException {
 		inicjuj();
-		this.liczbaInt = liczbaInt;
-		this.liczbaStr = arytmetyka.arrayToString(liczbaInt);
+		setLiczbaInt(liczbaInt);
+		this.liczbaStr = arrayToString(liczbaInt);
 	}
 
 	public DuzaLiczba() {
@@ -29,12 +30,14 @@ public class DuzaLiczba {
 	}
 
 	public int[] stringToArray() throws BlednaLiczbaException {
-		if (this.getDlugosc() < getLiczbaStr().length()) {
-			this.setDlugosc(getLiczbaStr().length());
+		int dl = this.getDlugosc();
+		int dl_str = this.getLiczbaStr().length();
+		if (dl < dl_str) {
+			dl = dl_str;
 		}
-		int[] array = new int[this.getLiczbaStr().length()];
-		int[] resultArray = new int[this.getDlugosc()];
-		for (int i = 0; i < this.getLiczbaStr().length(); i++) {
+		int[] array = new int[dl_str];
+		int[] resultArray = new int[dl];
+		for (int i = 0; i < dl_str; i++) {
 			if (Character.isDigit(this.getLiczbaStr().charAt(i))) {
 				array[i] = Character.getNumericValue(this.getLiczbaStr().charAt(i));
 			} else {
@@ -42,13 +45,28 @@ public class DuzaLiczba {
 				throw new BlednaLiczbaException();
 			}
 		}
-		for (int i = 0; i < this.getDlugosc(); i++) {
+		for (int i = 0; i < dl; i++) {
 			resultArray[i] = (i < array.length ? array[(array.length - 1) - i] : 0);
 		}
 		return resultArray;
 	}
+	public String arrayToString(int[] addArray) {
+		String add = "";
+		boolean firstNonZero = false;
+		for (int i = addArray.length - 1; i >= 0; i--) {
+
+			if (!firstNonZero && addArray[i] == 0) {
+				continue;
+			} else {
+				firstNonZero = true;
+			}
+			add += addArray[i];
+		}
+		String sumStr = add.length() == 0 ? "0" : add;
+		return sumStr;
+	}
 	public String getLiczbaStr() throws BlednaLiczbaException {
-		return liczbaStr!=null ? liczbaStr : liczbaInt!=null ? arytmetyka.arrayToString(this.getLiczbaInt()) : null;
+		return strNotNull() ? liczbaStr : intNotNull() ? arrayToString(this.getLiczbaInt()) : null;
 	}
 
 	public void setLiczbaStr(String liczbaStr) {
@@ -56,7 +74,15 @@ public class DuzaLiczba {
 	}
 
 	public int[] getLiczbaInt() throws BlednaLiczbaException {
-		return  liczbaInt!=null ? liczbaInt : liczbaStr!= null ? stringToArray() : null;
+		return  intNotNull() ? liczbaInt : strNotNull() ? stringToArray() : null;
+	}
+
+	private boolean strNotNull() {
+		return liczbaStr!= null;
+	}
+
+	private boolean intNotNull() {
+		return liczbaInt!=null;
 	}
 	public void setLiczbaInt(int[] liczbaInt) {
 		this.liczbaInt = liczbaInt;

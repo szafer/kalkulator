@@ -13,8 +13,8 @@ public class Arytmetyka {
 
 	public String add(int[] array1, int[] array2) {
 		int carry = 0;
-	//	System.out.println("array1.length " + array1.length + " array2.length " + array2.length);
-		int addArray[] = dajTablice(array1);
+		System.out.println("array1.length " + array1.length + " array2.length " + array2.length);
+		int addArray[] = new int[array1.length + 1];
 
 		for (int i = 0; i < array1.length; i++) {
 			addArray[i] = (array1[i] + array2[i] + carry) % 10;
@@ -24,15 +24,11 @@ public class Arytmetyka {
 		return arrayToString(addArray);
 	}
 
-	private int[] dajTablice(int[] array1) {
-		return new int[array1.length + 1];
-	}
-
 	private int getDigitAtIndex(int longint, int index) {
 		return Integer.parseInt(Integer.toString(longint).substring(index, index + 1));
 	}
 
-	public String arrayToString(int[] addArray) {
+	private String arrayToString(int[] addArray) {
 		String add = "";
 		boolean firstNonZero = false;
 		for (int i = addArray.length - 1; i >= 0; i--) {
@@ -50,7 +46,7 @@ public class Arytmetyka {
 
 	public String subtract(int[] array1, int[] array2) {
 		int carry = 0;
-		int sub[] = dajTablice(array1);
+		int sub[] = new int[array1.length + 1];
 
 		for (int i = 0; i < array1.length; i++) {
 			sub[i] = (array1[i] - array2[i] + carry) % 10; // sum digits +
@@ -105,7 +101,7 @@ public class Arytmetyka {
 		StringBuilder second = new StringBuilder(bigInt2);
 
 		if (bigInt1.length() > bigInt2.length()) {
-			difference = dajRoznice(bigInt1, bigInt2);
+			difference = bigInt1.length() - bigInt2.length();
 			for (int x = difference; x > 0; x--) {
 				second.insert(0, "0");
 
@@ -114,7 +110,7 @@ public class Arytmetyka {
 			return bigInt2;
 
 		} else {
-			difference = dajRoznice(bigInt2, bigInt1);
+			difference = bigInt2.length() - bigInt1.length();
 			for (int x = difference; x > 0; x--) {
 				first.insert(0, "0");
 			}
@@ -123,29 +119,28 @@ public class Arytmetyka {
 		}
 	}
 
-	private int dajRoznice(String bigInt1, String bigInt2) {
-		return bigInt1.length() - bigInt2.length();
-	}
-
 	public String add(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		ustawMaxDlugosc(tex, text);
+		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
+
+		tex.setDlugosc(length);
+		text.setDlugosc(length);
 		return add(tex.stringToArray(), text.stringToArray());
 	}
 
 	public String subtract(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		ustawMaxDlugosc(tex, text);
+		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
+		tex.setDlugosc(length);
+		text.setDlugosc(length);
 		return subtract(tex.stringToArray(), text.stringToArray());
 	}
 
 	public String multiply(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		ustawMaxDlugosc(tex, text);
-		return multiply(tex.stringToArray(), text.stringToArray());
-	}
-	private void ustawMaxDlugosc(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
 		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
 		tex.setDlugosc(length);
 		text.setDlugosc(length);
+		return multiply(tex.stringToArray(), text.stringToArray());
 	}
+
 	public int divide(int bigInt1, int bigInt2) throws Dzielenie0Exception {
 		if (bigInt2 == 0) {
 			throw new Dzielenie0Exception();
@@ -208,7 +203,7 @@ public class Arytmetyka {
 
 	public String divide(DuzaLiczba d1, String dzielnikStr) throws BlednaLiczbaException, Dzielenie0Exception {
 		int  dzielnik = 1;
-	
+		;
 		if (dzielnikStr.length() > 0) {
 			try {
 				dzielnik = Integer.parseInt(dzielnikStr);
