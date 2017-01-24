@@ -20,7 +20,7 @@ public class Main extends JFrame {
 					window.frmK.setVisible(true);
 					final UIManager.LookAndFeelInfo[] plafInfos = UIManager.getInstalledLookAndFeels();
 					try {
-						UIManager.setLookAndFeel(plafInfos[3].getClassName());//proponuje 1 lub 3 - wygląda fajnie
+						UIManager.setLookAndFeel(plafInfos[1].getClassName());//proponuje 1 lub 3 - wygląda fajnie
 						SwingUtilities.updateComponentTreeUI(frmK);
 						// frmK.pack();
 					} catch (Exception e) {
@@ -36,14 +36,12 @@ public class Main extends JFrame {
 	public Main() {
 		frmK = new JFrame();
 		frmK.setTitle("Kalkulator");
-		frmK.setBounds(100, 100, 400, 570);
+		frmK.setBounds(100, 100, 420, 620);
 		frmK.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmK.getContentPane().removeAll();
 		JPanel panel = (JPanel) frmK.getContentPane();
 		panel.add(new KalkulatorPanel());
 		frmK.setContentPane(panel);
-		frmK.setResizable(false);
-
 	}
 
 }

@@ -20,27 +20,26 @@ public class DuzaLiczba {
 	public DuzaLiczba() {
 	}
 
-	public String arrayToString() {
+
+	public  String arrayToString() {
 		String add = "";
 		boolean firstNonZero = false;
 		for (int i = liczbaInt.length - 1; i >= 0; i--) {
 
-			if (!firstNonZero && liczbaInt[i] == 0) {
+			if (!firstNonZero && (liczbaInt[i] == 0)) {
 				continue;
 			} else {
 				firstNonZero = true;
 			}
 			add += liczbaInt[i];
-			if ((i % 3 == 0) && i != 0) {
-				add += "";
-			} // formatting
+
 		}
 		String sumStr = add.length() == 0 ? "0" : add;
 		return sumStr;
 	}
 
 	public String getLiczbaStr() {
-		return liczbaStr != null ? liczbaStr : arrayToString();
+		return liczbaStr!=null ? liczbaStr : liczbaInt!=null ? arrayToString(): null;
 	}
 
 	public void setLiczbaStr(String liczbaStr) {
@@ -48,8 +47,9 @@ public class DuzaLiczba {
 	}
 
 	public int[] getLiczbaInt() throws BlednaLiczbaException {
-		return liczbaInt != null ? liczbaInt : stringToArray();
+		return  liczbaInt!=null ? liczbaInt : liczbaStr!=null ? stringToArray(): null;
 	}
+	
 
 	public int[] stringToArray() throws BlednaLiczbaException {
 		if (dlugosc < liczbaStr.length()) {
