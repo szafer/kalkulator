@@ -21,12 +21,11 @@ public class Konwersja {
 		return sumStr;
 	}
 
-	public static int[] stringToArray(String liczbaStr, int dlugosc) throws BlednaLiczbaException {
+	private static int[] konwertuj(String liczbaStr, int dlugosc) throws BlednaLiczbaException {
 		if (dlugosc < liczbaStr.length()) {
 			dlugosc = liczbaStr.length();
 		}
 		int[] array = new int[liczbaStr.length()];
-		int[] resultArray = new int[dlugosc];
 		for (int i = 0, n = liczbaStr.length(); i < n; i++) {
 			char c = liczbaStr.charAt(i);
 			if (Character.isDigit(c)) {
@@ -37,9 +36,24 @@ public class Konwersja {
 				throw new BlednaLiczbaException();
 			}
 		}
+
+		return array;
+	}
+	public static int[] stringToArray(String liczbaStr, int dlugosc) throws BlednaLiczbaException {
+		int[] resultArray = new int[dlugosc];
+		int[] array = konwertuj(liczbaStr, dlugosc);
 		for (int i = 0; i < dlugosc; i++) {
 			resultArray[i] = (i < array.length ? array[(array.length - 1) - i] : 0);
 		}
 		return resultArray;
+	}
+
+	public static int[] stringToArrayDivide(String liczbaStr) throws BlednaLiczbaException {
+		int[] array = konwertuj(liczbaStr, liczbaStr.length());
+		return array;
+	}
+
+	public static int[] stringToArray(String liczbaStr) throws BlednaLiczbaException {
+		return stringToArray(liczbaStr, liczbaStr.length());
 	}
 }

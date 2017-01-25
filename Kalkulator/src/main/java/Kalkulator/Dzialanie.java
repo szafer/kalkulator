@@ -13,22 +13,17 @@ public class Dzialanie {
 	}
 
 	public void run(String text, RodzajDzialania operacja) throws BlednaLiczbaException, Dzielenie0Exception, DzielenikZaDuzyException {
-//		konwertuj(text);
-
 		if (operacja ==RodzajDzialania.CANCEL){ 
 			pamiec = new String("0");
 		} else{
 			pamiec = wykonajDzialanie(text, this.operacja);
-			if (operacja ==RodzajDzialania.PLUS || operacja ==RodzajDzialania.MINUS ||
-				operacja ==RodzajDzialania.MNOZENIE ||operacja ==RodzajDzialania.DZIELENIE ){
-				this.operacja = operacja;
-			}  
 		}
+		this.operacja = operacja;
 		liczba = new String("0");
 	}
 
 	public String wykonajDzialanie(String text, RodzajDzialania oper) throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException {
-		String wynik = getPamiec();
+		String wynik = text;
 		DuzaLiczba d1 = new DuzaLiczba(getPamiec());
 		DuzaLiczba d2 = new DuzaLiczba(text);
 
@@ -40,8 +35,6 @@ public class Dzialanie {
 			wynik = arytmetyka.multiply(d1,  d2);
 		} else if (oper ==RodzajDzialania.DZIELENIE){
 			wynik = arytmetyka.divide(d1,  d2.getLiczbaStr());
-		}  else {
-			wynik = text;
 		} 
 		return wynik;
 	}

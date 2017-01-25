@@ -81,12 +81,23 @@ public class ArytmetykaTest {
 	/**
 	 * Test dzielenia liczb 
 	 * @throws Dzielenie0Exception 
+	 * @throws DzielenikZaDuzyException 
+	 * @throws BlednaLiczbaException 
 	 */
 	@Test
-	public void dzielenieLiczb() throws Dzielenie0Exception {
-		assertEquals(4, new Arytmetyka().divide(8, 2));
+	public void dzielenieLiczb() throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException {
+		assertEquals("6", new Arytmetyka().divide(new DuzaLiczba("12"), "2"));
 	}
-	
+	/**
+	 * Test dzielenia liczb z wynikiem 0
+	 * @throws Dzielenie0Exception 
+	 * @throws DzielenikZaDuzyException 
+	 * @throws BlednaLiczbaException 
+	 */
+	@Test
+	public void dzielenieLiczbWyn0() throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException {
+		assertEquals("0", new Arytmetyka().divide(new DuzaLiczba("12"), "21"));
+	}
 	/**
 	 * Test dzielenia liczby reprezentowanej przez obiekt przez liczbę podaną w String
 	 * @throws BlednaLiczbaException 
@@ -95,9 +106,9 @@ public class ArytmetykaTest {
 	 */
 	@Test
 	public void dzielenie() throws BlednaLiczbaException, Dzielenie0Exception, DzielenikZaDuzyException {
-		DuzaLiczba liczba1 = new DuzaLiczba("4442");
+		DuzaLiczba liczba1 = new DuzaLiczba("1234");
 		DuzaLiczba liczba2 = new DuzaLiczba("2");
-	 	assertEquals("2221", new Arytmetyka().divide(liczba1, liczba2.getLiczbaStr()));
+	 	assertEquals("617", new Arytmetyka().divide(liczba1, liczba2.getLiczbaStr()));
 	}
 	/**
 	 * Test dzielenia liczby reprezentowanej przez obiekt przez za dużą liczbę podaną w String
@@ -105,7 +116,7 @@ public class ArytmetykaTest {
 	 * @throws Dzielenie0Exception 
 	 * @throws DzielenikZaDuzyException 
 	 */
-	@Test(expected = BlednaLiczbaException.class)
+	@Test(expected = DzielenikZaDuzyException.class)
 	public void dzielenieBlednaLiczba() throws BlednaLiczbaException, Dzielenie0Exception, DzielenikZaDuzyException {
 		DuzaLiczba liczba1 = new DuzaLiczba("1234567891028343958413");
 		DuzaLiczba liczba2 = new DuzaLiczba("84537543756437548274954854");
@@ -114,18 +125,22 @@ public class ArytmetykaTest {
 	/**
 	 * Test dzielenia przez 0
 	 * @throws Dzielenie0Exception
+	 * @throws DzielenikZaDuzyException 
+	 * @throws BlednaLiczbaException 
 	 */
 	@Test(expected = Dzielenie0Exception.class)
-	public void dzielenieLiczb0() throws Dzielenie0Exception {
-		new Arytmetyka().divide(8, 0);
+	public void dzielenieLiczb0() throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException {
+		new Arytmetyka().divide(new DuzaLiczba("8"), "0");
 	}
 	
 	/**
 	 * Test dzielenia  0
 	 * @throws Dzielenie0Exception
+	 * @throws DzielenikZaDuzyException 
+	 * @throws BlednaLiczbaException 
 	 */
 	@Test 
-	public void dzielenieLiczby0() throws Dzielenie0Exception {
-		assertEquals(0, new Arytmetyka().divide(0, 1));
+	public void dzielenieLiczby0() throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException {
+		assertEquals("0", new Arytmetyka().divide(new DuzaLiczba("0"), "1"));
 	}
 }

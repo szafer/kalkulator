@@ -41,11 +41,6 @@ public class KalkulatorPanel extends JPanel {
 					komunikatBl1();
 				}
 			}
-
-			private void komunikatBl0() {
-				// TODO Auto-generated method stub
-
-			}
 		});
 
 		JButton minus = new JButton("-");
@@ -75,12 +70,12 @@ public class KalkulatorPanel extends JPanel {
 					dzialanie.run(txtWyswietlacz.getText(), RodzajDzialania.DZIELENIE);
 					txtWyswietlacz.setText("");
 					komunikat();
+				} catch (DzielenikZaDuzyException e) {
+					komunikatBl1();
 				} catch (BlednaLiczbaException e) {
 					komunikatBl();
 				} catch (Dzielenie0Exception e) {
 					komunikatBl0();
-				} catch (DzielenikZaDuzyException e) {
-					komunikatBl1();
 				}
 			}
 		});
@@ -128,7 +123,7 @@ public class KalkulatorPanel extends JPanel {
 				try {
 					dzialanie.run(txtWyswietlacz.getText(), RodzajDzialania.WYNIK);
 					txtWyswietlacz.setText(dzialanie.getPamiec().toString());
-					dzialanie.setPamiec("0");
+			 		dzialanie.setPamiec("0");
 					komunikat();
 				} catch (BlednaLiczbaException e) {
 					komunikatBl();
