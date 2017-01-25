@@ -14,15 +14,15 @@ public class Main extends JFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@SuppressWarnings("static-access")
 			public void run() {
 				try {
 					Main window = new Main();
 					window.frmK.setVisible(true);
 					final UIManager.LookAndFeelInfo[] plafInfos = UIManager.getInstalledLookAndFeels();
 					try {
-						UIManager.setLookAndFeel(plafInfos[1].getClassName());//proponuje 1 lub 3 - wygląda fajnie
+						UIManager.setLookAndFeel(plafInfos[1].getClassName()); 
 						SwingUtilities.updateComponentTreeUI(frmK);
-						// frmK.pack();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

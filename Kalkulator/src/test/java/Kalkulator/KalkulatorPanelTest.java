@@ -36,24 +36,4 @@ public class KalkulatorPanelTest {
 		panel.komunikatBl();
 		Assert.assertEquals("W celu wykonania działania podaj liczbę całkowitą", panel.getLbKomunikat().getText());
 	}
-	/**
-	 * Test braku wyświetlania komunikatu dla zerowej pamięci
-	 */
-	@Test
-	public void testKomunikat3() {
-		when(mockDzialanie.getPamiec()).thenReturn("0");
-		KalkulatorPanel panel = new KalkulatorPanel();
-		panel.komunikat();
-		Assert.assertEquals("", panel.getLbKomunikat().getText());
-	}
-	/**
-	 * Test braku wyświetlania komunikatu dla niezerowej pamięci
-	 */
-	@Test
-	public void testKomunikat4() {
-//		KalkulatorPanel panel = new KalkulatorPanel();
-//		when(mockDzialanie.getPamiec()).thenReturn("555");
-//		panel.komunikat();
-//		Assert.assertEquals("W pamięci:   555", panel.getLbKomunikat().getText());
-	}
 }

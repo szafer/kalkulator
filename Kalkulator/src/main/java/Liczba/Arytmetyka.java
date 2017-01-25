@@ -12,189 +12,144 @@ public class Arytmetyka {
 		return Integer.toString(bigInt).length();
 	}
 
-	public String add(int[] array1, int[] array2) {
-		int carry = 0;
-		int addArray[] = new int[array1.length + 1];
+	public String add(int[] tablica1, int[] tablica2) {
+		int wynik = 0;
+		int result[] = new int[tablica1.length + 1];
 
-		for (int i = 0; i < array1.length; i++) {
-			addArray[i] = (array1[i] + array2[i] + carry) % 10;
-			carry = (array1[i] + array2[i] + carry) / 10;
+		for (int i = 0; i < tablica1.length; i++) {
+			result[i] = (tablica1[i] + tablica2[i] + wynik) % 10;
+			wynik = (tablica1[i] + tablica2[i] + wynik) / 10;
 		}
-		addArray[array1.length] = carry;
-		return Konwersja.arrayToString(addArray);
+		result[tablica1.length] = wynik;
+		return Konwersja.arrayToString(result);
 	}
 
-	private int getDigitAtIndex(int longint, int index) {
+	private int getCyfra(int longint, int index) {
 		return Integer.parseInt(Integer.toString(longint).substring(index, index + 1));
 	}
 
 	
 
-	public String sub(int[] array1, int[] array2) {
-		int carry = 0;
-		int sub[] = new int[array1.length + 1];
+	private String sub(int[] tablica1, int[] tablica2) {
+		int wynik = 0;
+		int sub[] = new int[tablica1.length + 1];
 
-		for (int i = 0; i < array1.length; i++) {
-			sub[i] = (array1[i] - array2[i] + carry) % 10; // sum digits +
-															// carry; then
-															// extract last
-															// digit
-			carry = (array1[i] - array2[i] + carry) / 10; // Compute carry
+		for (int i = 0; i < tablica1.length; i++) {
+			sub[i] = (tablica1[i] - tablica2[i] + wynik) % 10;  
+			wynik = (tablica1[i] - tablica2[i] + wynik) / 10; 
 		}
-		sub[array1.length] = carry;
+		sub[tablica1.length] = wynik;
 		return Konwersja.arrayToString(sub);
 	}
 
-	private int[] intToArray(int bigInt, int bigIntLength, int arrayLength) {
+	private int[] intToArray(int inti, int intiLength, int tabLength) {
 
-		int array[] = new int[arrayLength];
-		for (int i = 0; i < arrayLength; i++) {
-			array[i] = (i < bigIntLength ? getDigitAtIndex(bigInt, bigIntLength - i - 1) : 0);
+		int array[] = new int[tabLength];
+		for (int i = 0; i < tabLength; i++) {
+			array[i] = (i < intiLength ? getCyfra(inti, intiLength - i - 1) : 0);
 		}
 		return array;
 	}
 
-	public String multiply(int[] array1, int[] array2) {
-		int product[] = new int[array1.length + array2.length];
-		for (int i = 0; i < array1.length; i++) {
-			for (int j = 0; j < array2.length; j++) {
+	public String multiply(int[] tablica1, int[] tablica2) {
+		int wynik[] = new int[tablica1.length + tablica2.length];
+		for (int i = 0; i < tablica1.length; i++) {
+			for (int j = 0; j < tablica2.length; j++) {
 
-				int prod = array1[i] * array2[j];
-				int prodLength = intLenght(prod);
-				int prodAsArray[] = intToArray(prod, prodLength, prodLength);
+				int wyn = tablica1[i] * tablica2[j];
+				int wynLength = intLenght(wyn);
+				int wynTab[] = intToArray(wyn, wynLength, wynLength);
 
-				for (int k = 0; k < prodAsArray.length; k++) {
-					product[i + j + k] += prodAsArray[k];
+				for (int k = 0; k < wynTab.length; k++) {
+					wynik[i + j + k] += wynTab[k];
 
-					int currentValue = product[i + j + k];
-					if (currentValue > 9) {
-						product[i + j + k] = 0;
-						int curValueLength = intLenght(currentValue);
-						int curValueAsArray[] = intToArray(currentValue, curValueLength, curValueLength);
-						for (int l = 0; l < curValueAsArray.length; l++) {
-							product[i + j + k + l] += curValueAsArray[l];
+					int wartoscBiezaca = wynik[i + j + k];
+					if (wartoscBiezaca > 9) {
+						wynik[i + j + k] = 0;
+						int wartoscBiezacaLength = intLenght(wartoscBiezaca);
+						int wartoscBiezacaTab[] = intToArray(wartoscBiezaca, wartoscBiezacaLength, wartoscBiezacaLength);
+						for (int l = 0; l < wartoscBiezacaTab.length; l++) {
+							wynik[i + j + k + l] += wartoscBiezacaTab[l];
 						}
 					}
 				}
 			}
 		}
-		return Konwersja.arrayToString(product);
-	}
-
-	public String check(String bigInt1, String bigInt2) {
-		int difference;
-		StringBuilder first = new StringBuilder(bigInt1);
-		StringBuilder second = new StringBuilder(bigInt2);
-
-		if (bigInt1.length() > bigInt2.length()) {
-			difference = bigInt1.length() - bigInt2.length();
-			for (int x = difference; x > 0; x--) {
-				second.insert(0, "0");
-
-			}
-			bigInt2 = second.toString();
-			return bigInt2;
-
-		} else {
-			difference = bigInt2.length() - bigInt1.length();
-			for (int x = difference; x > 0; x--) {
-				first.insert(0, "0");
-			}
-			bigInt1 = first.toString();
-			return bigInt1;
-		}
+		return Konwersja.arrayToString(wynik);
 	}
 
 	public String add(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length = ustawDlugosc(tex, text);
-		return add(Konwersja.stringToArray(tex.getLiczbaStr(), length), 
-				   Konwersja.stringToArray(text.getLiczbaStr(), length));
-	}
-
-	private int ustawDlugosc(DuzaLiczba tex, DuzaLiczba text) {
 		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
 
 		tex.setDlugosc(length);
 		text.setDlugosc(length);
-		return length;
+		return add(Konwersja.stringToArray(tex.getLiczbaStr(), length), 
+				   Konwersja.stringToArray(text.getLiczbaStr(), length));
 	}
 
 	public String subtract(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length = ustawDlugosc(tex, text);
+		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
+		tex.setDlugosc(length);
+		text.setDlugosc(length);
 		return sub(Konwersja.stringToArray(tex.getLiczbaStr(), length), 
 				   Konwersja.stringToArray(text.getLiczbaStr(), length));
 	}
 
 	public String multiply(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length = ustawDlugosc(tex, text);
+		int length = Math.max(tex.getLiczbaStr().length(), text.getLiczbaStr().length());
+		tex.setDlugosc(length);
+		text.setDlugosc(length);
 		return multiply(Konwersja.stringToArray(tex.getLiczbaStr(), length), 
 						Konwersja.stringToArray(text.getLiczbaStr(), length));
 	}
 
-	public int divide(int bigInt1, int bigInt2) throws Dzielenie0Exception {
-		if (bigInt2 == 0) {
-			throw new Dzielenie0Exception();
-		}
-		int sign = 1;
-		if (bigInt1 < 0) {
-			bigInt1 = -bigInt1;
-			sign = -sign;
-		}
-		if (bigInt2 < 0) {
-			bigInt2 = -bigInt2;
-			sign = -sign;
+	private int divideCyfra(int[] result, int resultIndex, int dzielna, int ostatniaReszta, int dzielnik) {
+		final long BASE_DIV = 10;
+		long podziel = dzielna + BASE_DIV * ostatniaReszta;
 
-		}
-		int result = 0;
-		while (bigInt1 >= 0) {
-			bigInt1 -= bigInt2;
-			result++;
-		}
-		return (result - 1) * sign;
-	}
+		long wynik = podziel / dzielnik;
+		long rem = podziel % dzielnik;
 
-	private int divideDigit(int[] result, int resultIndex, int divident, int lastRemainder, int divisor) {
-		assert divisor < BASE;
-		assert lastRemainder < divisor;
-
-		long ent = divident + (long) BASE * lastRemainder;
-
-		long quot = ent / divisor;
-		long rem = ent % divisor;
-
-		assert quot < BASE;
-		assert rem < divisor;
-
-		result[resultIndex] = (int) quot;
+		result[resultIndex] = (int) wynik;
 		return (int) rem;
 	}
 
-	private int divideDigits(int[] result, int resultIndex, int[] divident, int dividentIndex, int divisor) {
-		int remainder = 0;
-		for (; dividentIndex < divident.length; dividentIndex++, resultIndex++) {
-			remainder = divideDigit(result, resultIndex, divident[dividentIndex], remainder, divisor);
+	private int divideCyfry(int[] result, int resultIndex, int[] dzielna, int dzielnaIndex, int dzielnik) {
+		int reszta = 0;
+		for (; dzielnaIndex < dzielna.length; dzielnaIndex++, resultIndex++) {
+			reszta = divideCyfra(result, resultIndex, dzielna[dzielnaIndex], reszta, dzielnik);
 		}
-		return remainder;
+		return reszta;
 	}
 	
-	public DuzaLiczba divide(DuzaLiczba number, int divisor) throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException
+	public DuzaLiczba divide(DuzaLiczba dzielna, int dzielnik) throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException
 	{
-	    if(divisor <= 0 ) {
+	    if(dzielnik <= 0 ) {
 	        throw new Dzielenie0Exception();
 	    }
-	    if( BASE <= divisor) {
-	        throw new DzielenikZaDuzyException();
-	    }
-	    int[] result = new int[number.getDlugosc()];
-	    divideDigits(result, 0,
-	    		     number.getLiczbaInt(), 0,
-	                 divisor);
-	    DuzaLiczba bigNumber = new DuzaLiczba(result);
-	    return bigNumber;	    
+
+	    int[] result = new int[dzielna.getDlugosc()];
+	    divideCyfry(result, 0,
+	    		     dzielna.getLiczbaIntForDivide(), 0,
+	                 dzielnik);
+
+	    DuzaLiczba liczba = new DuzaLiczba(odwrotny(result));
+	    return liczba;	    
+	}
+
+	private int[] odwrotny(int[] result) {
+		int[] resultArray = new int[result.length];
+		for (int i = 0; i < result.length; i++) {
+			resultArray[i] =   result[(result.length - 1) - i];
+		}
+		return resultArray;
 	}
 
 	public String divide(DuzaLiczba d1, String dzielnikStr) throws BlednaLiczbaException, Dzielenie0Exception, DzielenikZaDuzyException {
-		int  dzielnik = 1;
+		int dzielnik = 1;
+	    if( dzielnikStr.length() > BASE_DECIMAL_DIGITS) {
+	        throw new DzielenikZaDuzyException();
+	    }
 		if (dzielnikStr.length() > 0) {
 			try {
 				dzielnik = Integer.parseInt(dzielnikStr);

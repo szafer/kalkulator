@@ -54,7 +54,7 @@ public class KalkulatorPanel extends JPanel {
 				try {
 					dzialanie.run(txtWyswietlacz.getText(), RodzajDzialania.WYNIK);
 					txtWyswietlacz.setText(dzialanie.getPamiec().toString());
-					dzialanie.setPamiec("0");
+			 		dzialanie.setPamiec("0");
 					komunikat();
 				} catch (BlednaLiczbaException e) {
 					komunikatBl();
