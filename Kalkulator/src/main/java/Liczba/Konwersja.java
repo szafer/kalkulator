@@ -9,7 +9,7 @@ public class Konwersja {
 		boolean firstNonZero = false;
 		for (int i = liczbaInt.length - 1; i >= 0; i--) {
 
-			if (!firstNonZero && (liczbaInt[i] == 0)) {
+			if (!firstNonZero && liczbaInt[i] == 0) {
 				continue;
 			} else {
 				firstNonZero = true;
