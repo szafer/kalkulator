@@ -1,7 +1,12 @@
 package Liczba;
 
 import Kalkulator.BlednaLiczbaException;
-
+/**
+ * Klasa DuzaLiczba przechowuje tablice int zawierająca liczby 
+ * na których wykonywane są działania matematyczne
+ * @author HK - MS
+ *
+ */
 public class DuzaLiczba {
 	public int[] liczbaInt;
 	public int dlugosc;

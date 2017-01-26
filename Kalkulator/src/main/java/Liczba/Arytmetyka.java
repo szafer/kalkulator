@@ -3,14 +3,62 @@ package Liczba;
 import Kalkulator.BlednaLiczbaException;
 import Kalkulator.Dzielenie0Exception;
 import Kalkulator.DzielenikZaDuzyException;
-
+/**
+ * Klasa odpowiedzialna za wykonywanie działań arytetycznych
+ * @author HK - MS
+ *
+ */
 public class Arytmetyka {
 	final static int BASE = 1000000000;
 	final static int BASE_DECIMAL_DIGITS = 9;
 
-	private int intLenght(int bigInt) {
-		return Integer.toString(bigInt).length();
+	public String add(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
+		int length = Math.max(tex.getDlugosc(), text.getDlugosc());
+		return add(Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length), 
+				   Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length));
 	}
+
+	public String subtract(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
+		int length =  Math.max(tex.getDlugosc(), text.getDlugosc());
+
+		if (wiekszaTex(tex, text)) {
+			return subtract(Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length), 
+						    Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length));
+		}else {
+			return "-"+ subtract(Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length), 
+					   		Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length));
+		}
+	}
+
+	private boolean wiekszaTex(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
+		return tex.getDlugosc() > text.getDlugosc()|| 
+				(tex.getDlugosc() > text.getDlugosc() && 
+				 tex.getLiczbaInt()[tex.getLiczbaInt().length -1] > text.getLiczbaInt()[text.getLiczbaInt().length -1]) ;
+	}
+
+	public String multiply(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
+		int length =  Math.max(tex.getDlugosc(), text.getDlugosc());
+		return multiply(Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length), 
+				   Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length));
+	}
+	public String divide(DuzaLiczba d1, DuzaLiczba d2) throws BlednaLiczbaException, Dzielenie0Exception, DzielenikZaDuzyException {
+		int dzielnik = 1;
+	    if( d2.getLiczbaInt().length > BASE_DECIMAL_DIGITS) {
+	        throw new DzielenikZaDuzyException();
+	    }
+		if (d2.getLiczbaInt().length > 0) {
+			try {
+				dzielnik = Integer.parseInt(Konwersja.arrayToString(d2.getLiczbaInt()));
+			} catch (Exception e) {
+				throw new BlednaLiczbaException();
+			}
+		}
+	    if( dzielnik == 0) {
+	        throw new Dzielenie0Exception();
+	    }
+		return Konwersja.arrayToString(divide(d1, dzielnik).getLiczbaInt());
+	}
+
 
 	public String add(int[] tablica1, int[] tablica2) {
 		int wynik = 0;
@@ -28,20 +76,25 @@ public class Arytmetyka {
 		return Integer.parseInt(Integer.toString(longint).substring(index, index + 1));
 	}
 
-	
-
-	private String sub(int[] tablica1, int[] tablica2) {
-		int wynik = 0;
+	private String subtract(int[] tablica1, int[] tablica2) {
+		int brak = 0;
 		int sub[] = new int[tablica1.length + 1];
 
 		for (int i = 0; i < tablica1.length; i++) {
-			sub[i] = (tablica1[i] - tablica2[i] + wynik) % 10;  
-			wynik = (tablica1[i] - tablica2[i] + wynik) / 10; 
+			if (tablica1[i] - brak  >= tablica2[i]){
+				sub[i] = (tablica1[i] - brak)- tablica2[i];
+				brak = 0;
+			} else {
+				if (i + 1 < tablica1.length && tablica1[i + 1] > 0){
+					sub[i] = (tablica1[i] - brak + 10) - tablica2[i];
+					brak = 1;
+				} else {
+					sub[i] = Math.abs((tablica1[i] - brak) - tablica2[i]);
+				}
+			}
 		}
-		sub[tablica1.length] = wynik;
 		return Konwersja.arrayToString(sub);
 	}
-
 	private int[] intToArray(int inti, int intiLength, int tabLength) {
 
 		int array[] = new int[tabLength];
@@ -50,7 +103,9 @@ public class Arytmetyka {
 		}
 		return array;
 	}
-
+	private int intLenght(int bigInt) {
+		return Integer.toString(bigInt).length();
+	}
 	public String multiply(int[] tablica1, int[] tablica2) {
 		int wynik[] = new int[tablica1.length + tablica2.length];
 		for (int i = 0; i < tablica1.length; i++) {
@@ -78,30 +133,7 @@ public class Arytmetyka {
 		return Konwersja.arrayToString(wynik);
 	}
 
-	public String add(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length = Math.max(tex.getDlugosc(), text.getDlugosc());
-
-		tex.setDlugosc(length);
-		text.setDlugosc(length);
-		return add(Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length), 
-				   Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length));
-	}
-
-	public String subtract(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length =  Math.max(tex.getDlugosc(), text.getDlugosc());
-		tex.setDlugosc(length);
-		text.setDlugosc(length);
-		return sub(Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length), 
-				   Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length));
-	}
-
-	public String multiply(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length =  Math.max(tex.getDlugosc(), text.getDlugosc());
-		tex.setDlugosc(length);
-		text.setDlugosc(length);
-		return multiply(Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length), 
-				   Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length));
-	}
+	
 
 	private int divideCyfra(int[] result, int resultIndex, int dzielna, int ostatniaReszta, int dzielnik) {
 		final long BASE_DIV = 10;
@@ -122,7 +154,7 @@ public class Arytmetyka {
 		return reszta;
 	}
 	
-	public DuzaLiczba divide(DuzaLiczba dzielna, int dzielnik) throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException
+	private DuzaLiczba divide(DuzaLiczba dzielna, int dzielnik) throws Dzielenie0Exception, BlednaLiczbaException, DzielenikZaDuzyException
 	{
 	    if(dzielnik <= 0 ) {
 	        throw new Dzielenie0Exception();
@@ -145,21 +177,5 @@ public class Arytmetyka {
 		return resultArray;
 	}
 
-	public String divide(DuzaLiczba d1, DuzaLiczba d2) throws BlednaLiczbaException, Dzielenie0Exception, DzielenikZaDuzyException {
-		int dzielnik = 1;
-	    if( d2.getLiczbaInt().length > BASE_DECIMAL_DIGITS) {
-	        throw new DzielenikZaDuzyException();
-	    }
-		if (d2.getLiczbaInt().length > 0) {
-			try {
-				dzielnik = Integer.parseInt(Konwersja.arrayToString(d2.getLiczbaInt()));
-			} catch (Exception e) {
-				throw new BlednaLiczbaException();
-			}
-		}
-	    if( dzielnik == 0) {
-	        throw new Dzielenie0Exception();
-	    }
-		return Konwersja.arrayToString(divide(d1, dzielnik).getLiczbaInt());
-	}
+
 }

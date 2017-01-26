@@ -48,23 +48,42 @@ public class KonwersjaTest {
 
 	/**
 	 * Sprawdzenie czy tablica  zostaje przepisana na tablice podanego wymiaru
+	 * czy jest to inna tablica
 	 * @throws BlednaLiczbaException 
 	 */
 	@Test
 	public void testWyrownajDlugosc() throws BlednaLiczbaException {
 		int[] liczba = Konwersja.wyrownajDlugosc(LICZBA_TESTOWA, 30);
 		assertNotSame(LICZBA_TESTOWA, liczba);
+	}
+	/**
+	 * Sprawdzenie czy tablica  zostaje przepisana na tablice podanego wymiaru
+	 * sprawdzenie długości
+	 * @throws BlednaLiczbaException 
+	 */
+	@Test
+	public void testWyrownajDlugoscLength() throws BlednaLiczbaException {
+		int[] liczba = Konwersja.wyrownajDlugosc(LICZBA_TESTOWA, 30);
 		assertEquals(30, liczba.length);
 	}
-	
 	/**
-	 * Sprawdzenie czy tablica  zostaje przepisana na tablice odwtotnej kolejnosc
+	 * Sprawdzenie czy tablica  zostaje przepisana na tablice odwrotnej kolejnosc
+	 *  czy jest to inna tablica
 	 * @throws BlednaLiczbaException 
 	 */
 	@Test
 	public void testOdwrocKolejnosc() throws BlednaLiczbaException {
 		int[] liczba = Konwersja.odwrocKolejnosc(LICZBA_TESTOWA);
 		assertNotSame(LICZBA_TESTOWA, liczba);
+	}
+	/**
+	 * Sprawdzenie czy tablica  zostaje przepisana na tablice odwrotnej kolejnosc
+	 * porównanie zawartosci
+	 * @throws BlednaLiczbaException 
+	 */
+	@Test
+	public void testOdwrocKolejnosceEq() throws BlednaLiczbaException {
+		int[] liczba = Konwersja.odwrocKolejnosc(LICZBA_TESTOWA);
 		assertArrayEquals(LICZBA_ODWR, liczba);
 	}
 }
