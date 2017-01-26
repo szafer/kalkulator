@@ -23,35 +23,9 @@ public class DuzaLiczbaTest {
 		DuzaLiczba liczba = new DuzaLiczba("123456789123456789123456789");
 		assertArrayEquals(LICZBA_TESTOWA, liczba.getLiczbaInt());
 	}
-	/**
-	 * Sprawdzenie czy liczba podana w postaci tablicy dobrze zamienia się na stringa
-	 * @throws BlednaLiczbaException 
-	 */
-	@Test
-	public void testKonstruktorTab() throws BlednaLiczbaException {
-		DuzaLiczba liczba = new DuzaLiczba(LICZBA_TESTOWA);
-		assertEquals("123456789123456789123456789", liczba.getLiczbaStr());
-	}	
-	/**
-	 * Sprawdzenie czy tablica dobrze zamieniana jest na String
-	 * @throws BlednaLiczbaException 
-	 */
-	@Test
-	public void testZamianyNaString() throws BlednaLiczbaException {
-		DuzaLiczba liczba = new DuzaLiczba();
-		liczba.setLiczbaInt(LICZBA_TESTOWA);
-		assertEquals("123456789123456789123456789", liczba.getLiczbaStr());
-	}
-	/**
-	 * Sprawdzenie czy string dobrze zamieniany jest na tablice
-	 * @throws BlednaLiczbaException 
-	 */
-	@Test
-	public void testZamianyNaTablice() throws BlednaLiczbaException {
-		DuzaLiczba liczba = new DuzaLiczba();
-		liczba.setLiczbaStr("123456789123456789123456789");
-		assertArrayEquals(LICZBA_TESTOWA, liczba.getLiczbaInt());
-	}
+
+
+
 	/**
 	 * Sprawdzenie czy niepoprawna liczba zglasza wyjatek
 	 * @throws BlednaLiczbaException 
@@ -82,16 +56,7 @@ public class DuzaLiczbaTest {
 		assertSame(LICZBA_TESTOWA, liczba.getLiczbaInt());		
 	}
 	
-	/**
-	 * Sprawdzenie czy ustawiona liczba jako string jest tym samym obiektem
-	 * @throws BlednaLiczbaException 
-	 */
-	@Test
-	public void testLiczbaString() throws BlednaLiczbaException {
-		DuzaLiczba liczba = new DuzaLiczba();
-		liczba.setLiczbaStr("123456789123456789123456789");
-		assertSame("123456789123456789123456789", liczba.getLiczbaStr());		
-	}
+
 	/**
 	 * Sprawdzenie długości liczby dla pustego obiektu - nie może być nullem
 	 * @throws BlednaLiczbaException
@@ -117,7 +82,7 @@ public class DuzaLiczbaTest {
 	@Test
 	public void testStringPusty() throws BlednaLiczbaException {
 		DuzaLiczba liczba = new DuzaLiczba();
-		assertNull(liczba.getLiczbaStr());
+		assertNull(liczba.getLiczbaInt());
 	}
 	/**
 	 * Sprawdzenie zawartości liczby przechowywanej w tablicy dla pustego obiektu 

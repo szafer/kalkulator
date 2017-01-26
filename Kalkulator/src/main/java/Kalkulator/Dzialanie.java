@@ -34,7 +34,7 @@ public class Dzialanie {
 		} else if (oper ==RodzajDzialania.MNOZENIE){
 			wynik = arytmetyka.multiply(d1,  d2);
 		} else if (oper ==RodzajDzialania.DZIELENIE){
-			wynik = arytmetyka.divide(d1,  d2.getLiczbaStr());
+			wynik = arytmetyka.divide(d1,  d2);
 		} 
 		return wynik;
 	}

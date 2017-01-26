@@ -1,59 +1,65 @@
 package Liczba;
 
 import Kalkulator.BlednaLiczbaException;
-
+/**
+ *  Klasa odpowiedzialna za konwertowanie stringa na tab i odwrotnie
+ * @author HK MS
+ *
+ */
 public class Konwersja {
 
 	public static String arrayToString(int[] liczbaInt) {
-		String add = "";
+		String result = "";
 		boolean firstNonZero = false;
 		for (int i = liczbaInt.length - 1; i >= 0; i--) {
-
 			if (!firstNonZero && liczbaInt[i] == 0) {
 				continue;
 			} else {
 				firstNonZero = true;
 			}
-			add += liczbaInt[i];
+			result += liczbaInt[i];
 
 		}
-		String sumStr = add.length() == 0 ? "0" : add;
-		return sumStr;
+		return result.length() == 0 ? "0" : result;
 	}
 
-	private static int[] konwertuj(String liczbaStr, int dlugosc) throws BlednaLiczbaException {
+	public static int[] stringToArray(String liczbaStr, int dlugosc) throws BlednaLiczbaException {
+		int[] wynikTab = new int[dlugosc];
 		if (dlugosc < liczbaStr.length()) {
 			dlugosc = liczbaStr.length();
 		}
-		int[] array = new int[liczbaStr.length()];
+		int[] tab = new int[liczbaStr.length()];
 		for (int i = 0, n = liczbaStr.length(); i < n; i++) {
-			char c = liczbaStr.charAt(i);
-			if (Character.isDigit(c)) {
-				int digit = Character.getNumericValue(c);
-				array[i] = digit;
+			if (Character.isDigit(liczbaStr.charAt(i))) {
+				tab[i] = Character.getNumericValue(liczbaStr.charAt(i));;
 			} else {
-				System.out.println();
 				throw new BlednaLiczbaException();
 			}
 		}
-
-		return array;
-	}
-	public static int[] stringToArray(String liczbaStr, int dlugosc) throws BlednaLiczbaException {
-		int[] resultArray = new int[dlugosc];
-		int[] array = konwertuj(liczbaStr, dlugosc);
 		for (int i = 0; i < dlugosc; i++) {
-			resultArray[i] = (i < array.length ? array[(array.length - 1) - i] : 0);
+			wynikTab[i] = (i < tab.length ? tab[(tab.length - 1) - i] : 0);
 		}
-		return resultArray;
+		return wynikTab;
 	}
 
-	public static int[] stringToArrayDivide(String liczbaStr) throws BlednaLiczbaException {
-		int[] array = konwertuj(liczbaStr, liczbaStr.length());
-		return array;
+	public static int[] odwrocKolejnosc(int[] liczbaInt) {
+		int[] wynikTab = new int[liczbaInt.length];
+		for (int i = 0; i < liczbaInt.length; i++) {
+			wynikTab[i] = (i < liczbaInt.length ? liczbaInt[(liczbaInt.length - 1) - i] : 0);
+		}
+		return wynikTab;
 	}
 
 	public static int[] stringToArray(String liczbaStr) throws BlednaLiczbaException {
 		return stringToArray(liczbaStr, liczbaStr.length());
+	}
+
+	public static int[] wyrownajDlugosc(int[] liczbaInt, int dlugosc) {
+		int[] wynikTab = new int[dlugosc];
+		 
+		for (int i = 0; i < dlugosc; i++) {
+			wynikTab[i] = (i < liczbaInt.length ? liczbaInt[i] : 0);
+		}
+		return wynikTab;
 	}
 }
