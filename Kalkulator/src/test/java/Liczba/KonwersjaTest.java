@@ -13,6 +13,7 @@ import Kalkulator.BlednaLiczbaException;
 public class KonwersjaTest {
 
 	private static final int[] LICZBA_TESTOWA = new int[] {9,8,7,6,5,4,3,2,1,9,8,7,6,5,4,3,2,1,9,8,7,6,5,4,3,2,1};
+	private static final int[] LICZBA_ODWR = new int[] {1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9};
 
 	/**
 	 * Sprawdzenie czy liczba podana w postaci stringa dobrze zamienia się na tablicę tej samej dlugosci
@@ -36,16 +37,6 @@ public class KonwersjaTest {
 	}
 	
 	/**
-	 * Sprawdzenie czy liczba podana w postaci stringa dobrze zamienia się 
-	 * na tablicę tej samej dlugosci dla dzielenia
-	 * @throws BlednaLiczbaException 
-	 */
-	@Test
-	public void testStringToArrayDiv() throws BlednaLiczbaException {
-		int[] liczba = Konwersja.stringToArrayDivide("987654321987654321987654321");
-		assertArrayEquals(LICZBA_TESTOWA, liczba);
-	}
-	/**
 	 * Sprawdzenie czy liczba podana w postaci tablicy dobrze zamienia się na stringa
 	 * @throws BlednaLiczbaException 
 	 */
@@ -55,4 +46,25 @@ public class KonwersjaTest {
 		assertEquals("123456789123456789123456789", liczba);
 	}	
 
+	/**
+	 * Sprawdzenie czy tablica  zostaje przepisana na tablice podanego wymiaru
+	 * @throws BlednaLiczbaException 
+	 */
+	@Test
+	public void testWyrownajDlugosc() throws BlednaLiczbaException {
+		int[] liczba = Konwersja.wyrownajDlugosc(LICZBA_TESTOWA, 30);
+		assertNotSame(LICZBA_TESTOWA, liczba);
+		assertEquals(30, liczba.length);
+	}
+	
+	/**
+	 * Sprawdzenie czy tablica  zostaje przepisana na tablice odwtotnej kolejnosc
+	 * @throws BlednaLiczbaException 
+	 */
+	@Test
+	public void testOdwrocKolejnosc() throws BlednaLiczbaException {
+		int[] liczba = Konwersja.odwrocKolejnosc(LICZBA_TESTOWA);
+		assertNotSame(LICZBA_TESTOWA, liczba);
+		assertArrayEquals(LICZBA_ODWR, liczba);
+	}
 }

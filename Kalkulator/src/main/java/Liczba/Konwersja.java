@@ -48,12 +48,24 @@ public class Konwersja {
 		return resultArray;
 	}
 
-	public static int[] stringToArrayDivide(String liczbaStr) throws BlednaLiczbaException {
-		int[] array = konwertuj(liczbaStr, liczbaStr.length());
-		return array;
+	public static int[] odwrocKolejnosc(int[] liczbaInt) {
+		int[] resultArray = new int[liczbaInt.length];
+		for (int i = 0; i < liczbaInt.length; i++) {
+			resultArray[i] = (i < liczbaInt.length ? liczbaInt[(liczbaInt.length - 1) - i] : 0);
+		}
+		return resultArray;
 	}
 
 	public static int[] stringToArray(String liczbaStr) throws BlednaLiczbaException {
 		return stringToArray(liczbaStr, liczbaStr.length());
+	}
+
+	public static int[] wyrownajDlugosc(int[] liczbaInt, int dlugosc) {
+		int[] resultArray = new int[dlugosc];
+		 
+		for (int i = 0; i < dlugosc; i++) {
+			resultArray[i] = (i < liczbaInt.length ? liczbaInt[i] : 0);
+		}
+		return resultArray;
 	}
 }
