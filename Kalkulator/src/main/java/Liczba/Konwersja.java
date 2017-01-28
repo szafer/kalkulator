@@ -31,7 +31,7 @@ public class Konwersja {
 		int[] tab = new int[liczbaStr.length()];
 		for (int i = 0, n = liczbaStr.length(); i < n; i++) {
 			if (Character.isDigit(liczbaStr.charAt(i))) {
-				tab[i] = Character.getNumericValue(liczbaStr.charAt(i));;
+				tab[i] = Character.getNumericValue(liczbaStr.charAt(i));
 			} else {
 				throw new BlednaLiczbaException();
 			}
