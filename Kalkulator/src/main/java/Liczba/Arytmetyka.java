@@ -95,8 +95,8 @@ public class Arytmetyka {
 				sub[i] = (tablica1[i] - brak) - tablica2[i];
 				brak = 0;
 			} else {
-				if (i + 1 < tablica1.length && tablica1[i + 1] > 0) {
-					sub[i] = tablica1[i] - brak + 10 - tablica2[i];
+				if (i + 1 < tablica1.length){
+					sub[i] = (tablica1[i] - brak + 10) - tablica2[i];
 					brak = 1;
 				} else {
 					sub[i] = Math.abs((tablica1[i] - brak) - tablica2[i]);
