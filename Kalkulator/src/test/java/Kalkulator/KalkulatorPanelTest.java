@@ -34,6 +34,6 @@ public class KalkulatorPanelTest {
 	public void testKomunikat2() {
 		KalkulatorPanel panel = new KalkulatorPanel();
 		panel.errorBl();
-		Assert.assertEquals("W celu wykonania działania podaj liczbę całkowitą", panel.getLbKomunikat().getText());
+		Assert.assertEquals("W celu wykonania działania podaj liczbę całkowitą dodatnią", panel.getLbKomunikat().getText());
 	}
 }
