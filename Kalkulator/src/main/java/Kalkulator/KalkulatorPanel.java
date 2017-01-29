@@ -220,16 +220,12 @@ public class KalkulatorPanel extends JPanel {
 				} catch (BlednaLiczbaException e) {
 					errorBl();
 				} catch (Dzielenie0Exception e) {
-					komunikatBl0();
+					errorD0();
 				} catch (DzielenikZaDuzyException e) {
 					errorDZD();
 				}
 			}
 
-			private void komunikatBl0() {
-				// TODO Auto-generated method stub
-
-			}
 		};
 	}
 
