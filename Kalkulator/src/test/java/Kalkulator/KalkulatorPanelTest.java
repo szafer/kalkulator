@@ -23,7 +23,7 @@ public class KalkulatorPanelTest {
 	@Test
 	public void testKomunikat1() {
 		KalkulatorPanel panel = new KalkulatorPanel();
-		panel.komunikatBl0();
+		panel.errorD0();
 		Assert.assertEquals("Nie można dzielić przez 0", panel.getLbKomunikat().getText());
 	}
 
@@ -33,7 +33,7 @@ public class KalkulatorPanelTest {
 	@Test
 	public void testKomunikat2() {
 		KalkulatorPanel panel = new KalkulatorPanel();
-		panel.komunikatBl();
+		panel.errorBl();
 		Assert.assertEquals("W celu wykonania działania podaj liczbę całkowitą", panel.getLbKomunikat().getText());
 	}
 }

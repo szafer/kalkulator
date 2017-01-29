@@ -273,7 +273,7 @@
 					<skipEmptyReport>false</skipEmptyReport>
 					<linkXref>true</linkXref>
 					<!-- <sourceEncoding>utf-8</sourceEncoding> -->
-					<minimumTokens>40</minimumTokens>
+					<minimumTokens>30</minimumTokens>
 					<targetJdk>1.8</targetJdk>
 					<goals>
 						<goal>pmd</goal>
@@ -329,7 +329,7 @@
 					<skipEmptyReport>false</skipEmptyReport>
 					<linkXref>true</linkXref>
 					<!-- <sourceEncoding>utf-8</sourceEncoding> -->
-					<minimumTokens>40</minimumTokens>
+					<minimumTokens>30</minimumTokens>
 					<targetJdk>1.8</targetJdk>
 					<goals>
 						<goal>pmd</goal>

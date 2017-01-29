@@ -55,13 +55,13 @@ public class KalkulatorPanel extends JPanel {
 					dzialanie.run(txtWyswietlacz.getText(), RodzajDzialania.WYNIK);
 					txtWyswietlacz.setText(dzialanie.getPamiec().toString());
 			 		dzialanie.setPamiec("0");
-					komunikat();
+					message();
 				} catch (BlednaLiczbaException e) {
-					komunikatBl();
+					errorBl();
 				} catch (Dzielenie0Exception e) {
-					komunikatBl0();
+					errorD0();
 				} catch (DzielenikZaDuzyException e) {
-					komunikatBl1();
+					errorDZD();
 				}
 			}
 		});
@@ -113,7 +113,7 @@ public class KalkulatorPanel extends JPanel {
 		txtWyswietlacz.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				komunikat();
+				message();
 			}
 		});
 		txtWyswietlacz.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -217,13 +217,13 @@ public class KalkulatorPanel extends JPanel {
 				try {
 					dzialanie.run(txtWyswietlacz.getText(), rodzajDzialania);
 					txtWyswietlacz.setText("");
-					komunikat();
+					message();
 				} catch (BlednaLiczbaException e) {
-					komunikatBl();
+					errorBl();
 				} catch (Dzielenie0Exception e) {
 					komunikatBl0();
 				} catch (DzielenikZaDuzyException e) {
-					komunikatBl1();
+					errorDZD();
 				}
 			}
 
@@ -234,21 +234,21 @@ public class KalkulatorPanel extends JPanel {
 		};
 	}
 
-	protected void komunikatBl1() {
+	protected void errorDZD() {
 		lbKomunikat.setText("Max dzielnika zostało okreslone na 1000000000");
 
 	}
 
-	public void komunikatBl0() {
+	public void errorD0() {
 		lbKomunikat.setText("Nie można dzielić przez 0");
 	}
 
-	public void komunikatBl() {
+	public void errorBl() {
 		// System.out.println("Błędna liczba");
 		lbKomunikat.setText("W celu wykonania działania podaj liczbę całkowitą");
 	}
 
-	public void komunikat() {
+	public void message() {
 		if (!dzialanie.getPamiec().equals("0")) {
 			lbKomunikat.setText("W pamięci:   " + dzialanie.getPamiec().toString());
 		} else {

@@ -15,21 +15,29 @@ public class Arytmetyka {
 	final static int BASE_DECIMAL_DIGITS = 9;
 
 	public String add(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length = Math.max(tex.getDlugosc(), text.getDlugosc());
-		return add(Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length),
-				Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length));
+		int length = maxDlugosc(tex, text);
+		return add(konwersjaWyrDl(tex, length),
+				konwersjaWyrDl(text, length));
+	}
+
+	private int[] konwersjaWyrDl(DuzaLiczba tex, int length) throws BlednaLiczbaException {
+		return Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length);
 	}
 
 	public String subtract(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length = Math.max(tex.getDlugosc(), text.getDlugosc());
+		int length = maxDlugosc(tex, text);
 
 		if (wiekszaTex(tex, text)) {
-			return subtract(Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length),
-					Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length));
+			return subtract(konwersjaWyrDl(tex, length),
+					konwersjaWyrDl(text, length));
 		} else {
-			return "-" + subtract(Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length),
-					Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length));
+			return "-" + subtract(konwersjaWyrDl(text, length),
+					konwersjaWyrDl(tex, length));
 		}
+	}
+
+	private int maxDlugosc(DuzaLiczba tex, DuzaLiczba text) {
+		return Math.max(tex.getDlugosc(), text.getDlugosc());
 	}
 
 	private boolean wiekszaTex(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
@@ -38,9 +46,9 @@ public class Arytmetyka {
 	}
 
 	public String multiply(DuzaLiczba tex, DuzaLiczba text) throws BlednaLiczbaException {
-		int length = Math.max(tex.getDlugosc(), text.getDlugosc());
-		return multiply(Konwersja.wyrownajDlugosc(tex.getLiczbaInt(), length),
-				Konwersja.wyrownajDlugosc(text.getLiczbaInt(), length));
+		int length = maxDlugosc(tex, text);
+		return multiply(konwersjaWyrDl(tex, length),
+				konwersjaWyrDl(text, length));
 	}
 
 	public String divide(DuzaLiczba d1, DuzaLiczba d2)
@@ -88,7 +96,7 @@ public class Arytmetyka {
 				brak = 0;
 			} else {
 				if (i + 1 < tablica1.length){
-					sub[i] = (tablica1[i] - brak + 10) - tablica2[i];
+					sub[i] = tablica1[i] - brak + 10 - tablica2[i];
 					brak = 1;
 				} else {
 					sub[i] = Math.abs((tablica1[i] - brak) - tablica2[i]);
