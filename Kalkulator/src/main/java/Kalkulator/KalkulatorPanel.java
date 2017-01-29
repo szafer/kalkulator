@@ -206,7 +206,6 @@ public class KalkulatorPanel extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				txtWyswietlacz.setText(dzialanie.przeliczLiczbe(liczbaString));
-				lbKomunikat.setText("");
 			}
 		};
 	}
@@ -244,8 +243,7 @@ public class KalkulatorPanel extends JPanel {
 	}
 
 	public void errorBl() {
-		// System.out.println("Błędna liczba");
-		lbKomunikat.setText("W celu wykonania działania podaj liczbę całkowitą");
+		lbKomunikat.setText("W celu wykonania działania podaj liczbę całkowitą dodatnią");
 	}
 
 	public void message() {
